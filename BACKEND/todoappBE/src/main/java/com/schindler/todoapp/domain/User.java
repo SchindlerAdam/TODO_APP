@@ -7,6 +7,7 @@ import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 @Entity
@@ -47,6 +48,11 @@ public class User {
         this.userEmail = registerNewUserCommand.getUserEmail();
         this.userPassword = registerNewUserCommand.getUserPassword();
         this.registrationDate = LocalDate.parse(registerNewUserCommand.getRegistrationDate());
+        if(registerNewUserCommand.getUserRole().equals("ADMIN")) {
+            this.userRole.addAll(List.of(UserRole.ROLE_USER, UserRole.ROLE_ADMIN));
+        } else {
+            this.userRole.add(UserRole.ROLE_USER);
+        }
         this.isDeleted = false;
     }
 
@@ -80,6 +86,18 @@ public class User {
 
     public void setUserPassword(String userPassword) {
         this.userPassword = userPassword;
+    }
+
+    public List<UserRole> getUserRole() {
+        return userRole;
+    }
+
+    public void setUserRole(List<UserRole> userRole) {
+        this.userRole = userRole;
+    }
+
+    public List<String> getUserRolesAsString() {
+        return userRole.stream().map(Enum::toString).collect(Collectors.toList());
     }
 
     public List<Todo> getTodoList() {
