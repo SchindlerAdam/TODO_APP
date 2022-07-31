@@ -1,6 +1,7 @@
 package com.schindler.todoapp.controller;
 
 import com.schindler.todoapp.dto.user.commands.RegisterNewUserCommand;
+import com.schindler.todoapp.dto.user.datas.LoginData;
 import com.schindler.todoapp.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -11,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api/todo/user")
+@RequestMapping("/api/user/")
 public class UserController {
 
     private final UserService userService;
@@ -26,5 +27,10 @@ public class UserController {
     public ResponseEntity<Void> registerUser(@RequestBody RegisterNewUserCommand registerNewUserCommand) {
         userService.registerUser(registerNewUserCommand);
         return new ResponseEntity<>(HttpStatus.CREATED);
+    }
+
+
+    public ResponseEntity<LoginData> login() {
+
     }
 }

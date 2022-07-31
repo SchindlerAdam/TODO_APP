@@ -1,6 +1,7 @@
 package com.schindler.todoapp.security;
 
-import hu.progmasters.dailybugle.service.ProfileService;
+
+import com.schindler.todoapp.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -15,16 +16,15 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 
-    private PasswordEncoder passwordEncoder;
-    private ProfileService profileService;
+    private final PasswordEncoder passwordEncoder;
+    private final UserService userService;
 
 
 
     @Autowired
-    public SecurityConfig(PasswordEncoder passwordEncoder, ProfileService profileService) {
+    public SecurityConfig(PasswordEncoder passwordEncoder, UserService userService) {
         this.passwordEncoder = passwordEncoder;
-
-        this.profileService = profileService;
+        this.userService = userService;
     }
 
 
@@ -39,9 +39,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     .formLogin()
                 .and()
                     .authorizeRequests()
-                    .antMatchers("/api/profile/register").permitAll()
-                    .antMatchers("/api/article/list").permitAll()
-                    .antMatchers("/api/article/get/**").permitAll()
+                    .antMatchers("/api/todo/user/register").permitAll()
                     .anyRequest().authenticated()
                 .and()
                     .logout()
@@ -50,12 +48,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     .clearAuthentication(true);
 
 
-    }
-
-
-    @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(profileService).passwordEncoder(passwordEncoder);
     }
 
 

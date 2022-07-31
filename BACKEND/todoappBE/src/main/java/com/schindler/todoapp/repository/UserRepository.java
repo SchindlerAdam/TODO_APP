@@ -17,7 +17,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
     Optional<List<User>> findAllNonDeletedUser();
 
 
-    @Query("SELECT u FROM User u WHERE u.userId = :userId AND u.isDeleted = false")
-    Optional<User> findNonDeletedUserById(@Param("userId") Long userId);
+    @Query("SELECT u FROM User u WHERE u.userId = :userName AND u.isDeleted = false")
+    Optional<User> findNonDeletedUserById(@Param("userName") String userName);
 
 }

@@ -1,5 +1,6 @@
 package com.schindler.todoapp.domain;
 
+import com.schindler.todoapp.domain.enums.UserRole;
 import com.schindler.todoapp.dto.user.commands.RegisterNewUserCommand;
 
 import javax.persistence.*;
@@ -23,6 +24,11 @@ public class User {
 
     @Column(name = "user_password")
     private String userPassword;
+
+    @Enumerated(EnumType.STRING)
+    @ElementCollection(fetch = FetchType.EAGER)
+    @JoinTable(name = "user_role")
+    private List<UserRole> userRole = new ArrayList<>();
 
     @OneToMany(mappedBy = "user")
     private List<Todo> todoList = new ArrayList<>();
