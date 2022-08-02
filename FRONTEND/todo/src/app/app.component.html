@@ -1,0 +1,41 @@
+<mat-toolbar color="primary" class="navbar-container">
+
+  <div class="navbar-container-todo">
+    <h1>TODO</h1>
+  </div>
+
+  <div class="navbar-links">
+
+    <div class="navbar-links-item">
+
+      <button
+        mat-icon-button
+        routerLink="register"
+        routerLinkActive="active"
+        [routerLinkActiveOptions]="{exact:true}"
+      >
+        <span class="navbar-span">Register</span>
+      </button>
+
+    </div>
+
+    <div class="navbar-links-item">
+
+      <button
+        mat-icon-button
+        routerLink="login"
+        routerLinkActive="active"
+        [routerLinkActiveOptions]="{exact:true}"
+      >
+        <span class="material-icons">login</span>
+        <span class="navbar-span">Login</span>
+      </button>
+
+    </div>
+
+  </div>
+
+</mat-toolbar>
+
+
+<router-outlet></router-outlet>
