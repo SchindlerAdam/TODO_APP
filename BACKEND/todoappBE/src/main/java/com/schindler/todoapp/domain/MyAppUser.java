@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
 
 
 @Entity
-public class User {
+public class MyAppUser {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,7 +31,7 @@ public class User {
     @JoinTable(name = "user_role")
     private List<UserRole> userRole = new ArrayList<>();
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "myAppUser")
     private List<Todo> todoList = new ArrayList<>();
 
     @Column(name = "registration_date")
@@ -40,14 +40,14 @@ public class User {
     @Column(name = "deleted")
     private Boolean isDeleted;
 
-    public User() {
+    public MyAppUser() {
     }
 
-    public User(RegisterNewUserCommand registerNewUserCommand) {
+    public MyAppUser(RegisterNewUserCommand registerNewUserCommand) {
         this.userName = registerNewUserCommand.getUserName();
         this.userEmail = registerNewUserCommand.getUserEmail();
         this.userPassword = registerNewUserCommand.getUserPassword();
-        this.registrationDate = LocalDate.parse(registerNewUserCommand.getRegistrationDate());
+        this.registrationDate = LocalDate.now();
         if(registerNewUserCommand.getUserRole().equals("ADMIN")) {
             this.userRole.addAll(List.of(UserRole.ROLE_USER, UserRole.ROLE_ADMIN));
         } else {

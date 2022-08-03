@@ -1,6 +1,6 @@
 package com.schindler.todoapp.security.authorization;
 
-import com.schindler.todoapp.domain.User;
+import com.schindler.todoapp.domain.MyAppUser;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -9,28 +9,32 @@ import java.util.Collection;
 
 public class TodoUserDetails implements UserDetails {
 
-    private final User user;
+    private final MyAppUser myAppUser;
 
 
-    public TodoUserDetails(User user) {
-        this.user = user;
+    public TodoUserDetails(MyAppUser myAppUser) {
+        this.myAppUser = myAppUser;
+    }
+
+    public Long getUserId() {
+        return myAppUser.getUserId();
     }
 
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        String[] userRoles = user.getUserRolesAsString().toArray(String[]::new);
+        String[] userRoles = myAppUser.getUserRolesAsString().toArray(String[]::new);
         return AuthorityUtils.createAuthorityList(userRoles);
     }
 
     @Override
     public String getPassword() {
-        return user.getUserPassword();
+        return myAppUser.getUserPassword();
     }
 
     @Override
     public String getUsername() {
-        return user.getUserName();
+        return myAppUser.getUserName();
     }
 
     @Override

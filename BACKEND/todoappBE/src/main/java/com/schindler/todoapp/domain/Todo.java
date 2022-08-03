@@ -28,7 +28,7 @@ public class Todo {
 
     @ManyToOne
     @JoinColumn(name = "userId")
-    private User user;
+    private MyAppUser myAppUser;
 
     @Column(name = "deleted")
     private Boolean isDeleted;
@@ -76,12 +76,12 @@ public class Todo {
         this.creationDate = creationDate;
     }
 
-    public User getUser() {
-        return user;
+    public MyAppUser getUser() {
+        return myAppUser;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setUser(MyAppUser myAppUser) {
+        this.myAppUser = myAppUser;
     }
 
     public Boolean getDeleted() {

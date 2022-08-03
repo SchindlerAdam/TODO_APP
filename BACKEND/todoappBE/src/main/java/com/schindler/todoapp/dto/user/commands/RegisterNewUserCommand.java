@@ -7,7 +7,7 @@ public class RegisterNewUserCommand {
     private String userEmail;
     private String userPassword;
     private String userRole;
-    private String registrationDate;
+
 
     public RegisterNewUserCommand() {
 
@@ -43,13 +43,5 @@ public class RegisterNewUserCommand {
 
     public void setUserRole(String userRole) {
         this.userRole = userRole;
-    }
-
-    public String getRegistrationDate() {
-        return registrationDate;
-    }
-
-    public void setRegistrationDate(String registrationDate) {
-        this.registrationDate = registrationDate;
     }
 }

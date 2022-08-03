@@ -1,8 +1,8 @@
 package com.schindler.todoapp.domain.enums;
 
 public enum UserRole {
-    ROLE_USER("user"),
-    ROLE_ADMIN("admin");
+    ROLE_USER("USER"),
+    ROLE_ADMIN("ADMIN");
 
     private final String profileType;
 
