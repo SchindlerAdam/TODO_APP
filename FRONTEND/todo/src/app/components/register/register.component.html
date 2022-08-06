@@ -1,44 +1,72 @@
-<form class="form-container">
-  <mat-card>
-    <mat-card-title>Register</mat-card-title>
-    <mat-card-content>
-      <div>
-        <mat-form-field class="form-field" appearance="outline">
-          <mat-label>Username</mat-label>
-          <input matInput required formControlName="title" type="text">
-        </mat-form-field>
-      </div>
+<div class="form-container">
 
-      <div>
-        <mat-form-field class="form-field" appearance="outline">
-          <mat-label>Email</mat-label>
-          <input matInput required formControlName="director" type="email">
-        </mat-form-field>
-      </div>
+  <h1 class="mat-display-3">Register</h1>
 
-      <div>
-        <mat-form-field class="form-field" appearance="outline">
-          <mat-label>Password</mat-label>
-          <input matInput required formControlName="year" type="password">
-          <!--<small *ngIf="!movieFormGroup.controls['year'].valid && movieFormGroup.controls['year'].touched">Please enter a number!</small>-->
-        </mat-form-field>
-      </div>
+  <form [formGroup]="registerForm">
+    <mat-form-field color="primary" appearance="outline">
+      <mat-label>Username</mat-label>
+      <input
+        matInput
+        formControlName="userName"
+        type="text"
+        required
+        placeholder="Username">
+      <mat-icon matSuffix>person_outline</mat-icon>
+      <mat-error *ngIf="registerForm.get('userName')?.invalid && registerForm.get('userName')?.touched">
+        Please enter a valid username!
+        <mat-icon>error</mat-icon>
+      </mat-error>
+    </mat-form-field>
 
-      <div>
-        <mat-form-field class="form-field" appearance="outline">
-          <mat-label>Password again</mat-label>
-          <input matInput required formControlName="year" type="password">
-          <!--<small *ngIf="!movieFormGroup.controls['year'].valid && movieFormGroup.controls['year'].touched">Please enter a number!</small>-->
-        </mat-form-field>
-      </div>
+    <mat-form-field color="primary" appearance="outline">
+      <mat-label>Email</mat-label>
+      <input
+        matInput
+        formControlName="userEmail"
+        type="email"
+        required
+        placeholder="Email address">
+      <mat-icon matSuffix>mail_outline</mat-icon>
+      <mat-error *ngIf="registerForm.get('userEmail')?.invalid && registerForm.get('userEmail')?.touched">
+        Please enter a valid email!
+        <mat-icon>error</mat-icon>
+      </mat-error>
+    </mat-form-field>
 
-      <div class="button-container">
-        <button mat-fab color="accent" aria-label="Example icon button with a delete icon">
-          <mat-icon>done</mat-icon>
-        </button>
-        <span>SUBMIT</span>
-      </div>
+    <mat-form-field color="primary" appearance="outline">
+      <mat-label>Password</mat-label>
+      <input
+        matInput
+        formControlName="userPassword"
+        [type]="passwordType"
+        required
+        placeholder="Password"
+      >
+      <mat-icon *ngIf="showPassword; else passwordElseBlock" (click)="onChangeShowPassword()" matSuffix>lock_open</mat-icon>
+      <ng-template #passwordElseBlock>
+        <mat-icon (click)="onChangeShowPassword()" matSuffix>lock</mat-icon>
+      </ng-template>
+      <password-strength-meter [password]="registerForm.get('userPassword')?.value"></password-strength-meter>
 
-    </mat-card-content>
-  </mat-card>
-</form>
+      <mat-error *ngIf="registerForm.get('userPassword')?.invalid && registerForm.get('userPassword')?.touched">
+        Please enter a valid password!
+        <mat-icon>error</mat-icon>
+      </mat-error>
+    </mat-form-field>
+
+    <button
+      mat-fab
+      color="primary"
+      (click)="onSubmit()"
+      [disabled]="registerForm.invalid"
+    >
+      <mat-icon class="submit-icon" *ngIf="registerForm.valid; else submitElseBlock">done</mat-icon>
+      <ng-template #submitElseBlock>
+        <mat-icon class="submit-icon">close</mat-icon>
+      </ng-template>
+    </button>
+
+
+  </form>
+
+</div>

@@ -62,15 +62,15 @@ public class RegisterUserValidator implements Validator {
                 numberCounter++;
             }
         }
-        // Annak ellenőrzése, hogy a jelszó tartalmaz-e nagy betűt
+/*        // Annak ellenőrzése, hogy a jelszó tartalmaz-e nagy betűt
         int uppercaseCharCounter = 0;
         for (int i = 0; i < password.length(); i++) {
             if(Character.isUpperCase(password.charAt(i))) {
                 uppercaseCharCounter++;
             }
-        }
+        }*/
 
-        if(numberCounter < 3 || uppercaseCharCounter < 1) {
+        if(numberCounter < 3 ) {
             errors.rejectValue("userPassword", "invalid.password");
         }
 
